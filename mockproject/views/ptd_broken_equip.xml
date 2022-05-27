@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_broken_equip_form" model="ir.ui.view">
+            <field name="model">ptd.broken.equip</field>
+            <field name="arch" type="xml">
+                <form string="Broken equip">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+<!--                                <field name="name_device"/>-->
+                                <field name="dmg_time"/>
+                                <field name="dmg_reason"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_broken_equip_tree" model="ir.ui.view">
+            <field name="name"> Broken equipment</field>
+            <field name="model">ptd.broken.equip</field>
+            <field name="arch" type="xml">
+                <tree string="Broken equipment"  default_order="id desc" >
+<!--                    # định nghĩa màn hình tree view-->
+                     <field name="name"/>
+<!--                     <field name="name_device"/>-->
+                     <field name="dmg_time"/>
+                     <field name="dmg_reason"/>
+                </tree>
+            </field>
+<!--            # ddinghj nghĩa màn hình from view-->
+        </record>
+
+        <record id="ptd_broken_equip_act" model="ir.actions.act_window">
+<!--            # định nghĩa màn hình-->
+            <field name="name"> Broken equipment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.broken.equip</field>
+            <field name="view_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

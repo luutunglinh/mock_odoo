@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <menuitem id="open_create_reporting"
+              name="Báo cáo"
+              sequence="51"
+              parent="ptd_management_menuroot"/>
+    <record model="ir.ui.view" id="pdf_report_form_view">
+        <field name="name">Báo cáo</field>
+        <field name="model">create.pdf.report</field>
+        <field name="arch" type="xml">
+            <form string="Báo cáo">
+                <group>
+                    <field name="type" />
+                    <field name="record_id">
+                        <tree editable="bottom">
+                            <field name="name"
+                                   decoration-warning="quality_status=='occupied'"
+                                   decoration-danger="quality_status=='expiry_near'"/>
+                            <field name="asset_code"/>
+                            <field name="expiry_date"/>
+                            <field name="quality_status"
+                                   decoration-warning="quality_status=='occupied'"
+                                   decoration-danger="quality_status=='expiry_near'"/>
+                            <field name="status"/>
+                        </tree>
+
+                    </field>
+
+
+
+
+
+                </group>
+                <footer>
+                    <button string="In PDF" name="print_report" type="object" class="btn-primary"/>
+<!--                    <button string="In XLSX" name="print_report_excel" type="object" class="btn-primary"/>-->
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="create_pdf_report" model="ir.actions.act_window">
+        <field name="name">PDF Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.pdf.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pdf_report_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem id="open_academy_reporting_sub"
+              name="Báo cáo PDF"
+              sequence="3"
+              action="create_pdf_report"
+                   parent="mockproject.open_create_reporting"
+     />
+
+</odoo>

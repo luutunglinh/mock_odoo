@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type = "text / css" href="/mockproject/static/css/report.css" ?>
+<odoo>
+    <data>
+        <!--        Định nghĩa Paper Format-->
+        <record id="bms_paperformat" model="report.paperformat">
+            <field name="name">Báo cáo chi tiết phương tiện đo</field>
+            <field name="default" eval="True"/>
+            <field name="format">A3</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">96</field>
+        </record>
+
+        <!--        Định nghĩa nội dung in ấn-->
+        <template id="BaoCaoChiTiet">
+            <t t-call="web.basic_layout">
+
+                <h1>BÁO CÁO CHI TIẾT VỀ PHƯƠNG TIỆN ĐO LƯỜNG</h1>
+                <br/>
+                <table class="vss_table">
+                    <thead>
+                    <tr>
+                        <!--                            rowspan="3" là nó chiếm cả 3 hàng-->
+                        <!--                            colspan="4" là nó gồm có 4 cột bên trong-->
+                        <th rowspan="3">STT</th>
+                        <th rowspan="3">Tên phương tiện đo</th>
+                        <th rowspan="3">Mã thiết bị</th>
+                        <!--                        <th rowspan="3">Part numbers</th>-->
+                        <th rowspan="3">Serial</th>
+                        <th rowspan="3">Tình trạng</th>
+                        <th rowspan="3">Thời gian đưa vào sử dụng</th>
+                        <th colspan="3">Thông tin quản lí</th>
+                        <th colspan="4">Phân cấp chất lượng</th>
+                        <th colspan="7">Công tác kiểm định/Hiệu chuẩn (KĐHC)</th>
+                        <th colspan="1">Công tác bảo trì, bảo dưỡng</th>
+                        <th colspan="2">Công tác bảo hành sửa chữa</th>
+                        <th rowspan="3">Ghi chú</th>
+                    </tr>
+
+                    <tr>
+                        <!-- Thông tin quản lí -->
+                        <th rowspan="2">Mã nhân viên</th>
+                        <th rowspan="2">Họ và tên</th>
+                        <th rowspan="2">Đơn vị quản lí</th>
+                        <!-- Phân cấp chất lượng -->
+                        <th rowspan="2">Cấp 1</th>
+                        <th rowspan="2">Cấp 2</th>
+                        <th rowspan="2">Cấp 3</th>
+                        <th rowspan="2">Cấp 4</th>
+                        <!-- Công tác kiểm định hiệu chuẩn -->
+                        <th rowspan="2">Chu kì kiểm định hiệu chuẩn</th>
+                        <th rowspan="2">Thời gian thực hiện KĐHC gần nhất</th>
+                        <th rowspan="2">Đối tác thực hiện KĐHC</th>
+                        <th rowspan="2">Ghi rõ KĐ hay HC</th>
+                        <!-- Merger col -->
+                        <th colspan="3">Kết quả kiểm định hay hiệu chuẩn</th>
+                        <!-- Công tác bảo trì -->
+                        <th rowspan="2">Thời gian thực hiện gần nhất</th>
+                        <!-- Công tác bảo hành sửa chữa -->
+                        <th rowspan="2">Thời gian hỏng gần nhất</th>
+                        <th rowspan="2">Nguyên nhân hỏng</th>
+                    </tr>
+                    <tr>
+                        <th>Đạt</th>
+                        <th>Không Đạt</th>
+                        <th>Nguyên nhân không đạt</th>
+                    </tr>
+                    </thead>
+                    <t t-set="i" t-value="1"/>
+                    <div t-foreach="docs" t-as="o">
+                        <t t-foreach="o" t-as="record">
+                            <tbody class="container">
+                                <tr>
+                                    <td>
+                                        <span t-esc="i"/>
+                                    </td>
+
+                                    <td>
+        <!--                                    Tên phương tiện đo-->
+                                        <span t-esc="record.asset_code"/>
+                                    </td>
+
+                                    <td>
+        <!--                                    Mã QLTS-->
+                                            <span t-esc="record.name"/>
+                                    </td>
+
+                                    <td >
+        <!--                                 Serial number-->
+                                        <span t-esc="record.serial_number"/>
+                                    </td>
+
+
+                                        <t t-if="record.quality_status == 'occupied'">
+                                            <td>
+                                                <p>Gần hết hạn</p>
+                                            </td>
+                                        </t>
+                                        <t t-if="record.quality_status == 'expiry_near'">
+                                            <td>
+                                                <p>Hết hạn</p>
+                                            </td>
+                                        </t>
+                                         <t t-if="record.quality_status == 'available'">
+                                            <td>
+                                                <p>Đang sử dụng</p>
+                                            </td>
+                                        </t>
+        <!--                                    Tình trạng-->
+<!--                                        <span t-esc="record.quality_status"/>-->
+
+
+                                    <td >
+        <!--                                    Thời gian đưa vào sử dụng-->
+                                        <span t-esc="record.year_use"/>
+                                    </td>
+
+                                    <td>
+        <!--                                    Mã nhân viên-->
+                                        <span t-esc="record.direct_manager_id.code_name"/>
+                                    </td>
+
+                                    <td>
+        <!--                                    Họ và tên-->
+                                        <span t-esc="record.direct_manager_id.name"/>
+                                    </td>
+
+                                    <td>
+        <!--                                    Đơn vị quản lý-->
+                                        <span t-esc="record.direct_unit_manager_id.name"/>
+                                    </td>
+                                         <!-- Cấp 1-->
+
+                                    <t t-if="record.quality_level == '1'">
+                                        <td><p>x</p></td>
+                                    </t>
+                                    <t t-else="record.quality_level != '1'">
+                                        <td><p></p></td>
+                                    </t>
+        <!--                                    Cấp 2-->
+                                    <t t-if="record.quality_level == '2'">
+                                        <td><p>x</p></td>
+                                    </t>
+                                    <t t-else="record.quality_level != '2'">
+                                        <td><p></p></td>
+                                    </t>
+        <!--                                    Cấp 3-->
+                                    <t t-if="record.quality_level == '3'">
+                                        <td><p>x</p></td>
+                                    </t>
+                                    <t t-else="record.quality_level != '3'">
+                                        <td><p></p></td>
+                                    </t>
+
+        <!--                                    Cấp 4-->
+                                    <t t-if="record.quality_level == '4'">
+                                        <td><p>x</p></td>
+                                    </t>
+                                    <t t-else="record.quality_level != '4'">
+                                        <td><p></p></td>
+                                    </t>
+
+                                    <td>
+        <!--                                    Chu kì kiểm định hiệu chỉnh-->
+                                        <span t-esc="record.maintain_cycle"/>
+                                    </td>
+
+
+        <!--                            Thời gian thực hiện kiểm định hiệu chỉnh-->
+                                    <t t-if="not record.can_link_info_ids">
+                                        <td><p> </p></td>
+                                        <td><p> </p></td>
+                                        <td><p> </p></td>
+                                        <td><p> </p></td>
+                                        <td><p> </p></td>
+                                        <td><p> </p></td>
+                                    </t>
+                                    <t t-else="record.can_link_info_ids">
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <td><p><span t-esc="check_or_correct_id.implement"/></p></td>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <td><p><span t-esc="check_or_correct_id.organization"/></p></td>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <t t-if="check_or_correct_id.name =='Accreditation'">
+                                                <td><p>Kiểm định</p></td>
+                                            </t>
+                                            <t t-if="check_or_correct_id.name =='Calibration'">
+                                                <td><p>Hiệu chỉnh</p></td>
+                                            </t>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+        <!--                                             Kết quả KĐ/HC : Đạt-->
+                                            <t t-if="check_or_correct_id.result == 'pass'">
+                                                <td><p>x</p></td>
+                                            </t>
+                                            <t t-else="check_or_correct_id.result != 'nopass'">
+                                                <td><p></p></td>
+                                            </t>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <t t-if="check_or_correct_id.name != '2'">
+                                                <td><p></p></td>
+                                            </t>
+                                            <t t-else="check_or_correct_id.name == '2'">
+                                                <td><p>x</p></td>
+                                            </t>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <t t-if="check_or_correct_id.name != '2'">
+                                                <td><p></p></td>
+                                            </t>
+                                            <t t-else="check_or_correct_id.name == '2'">
+                                                <td><p><span t-esc="check_or_correct_id.reason_not_pass"/></p></td>
+                                            </t>
+                                        </t>
+
+                                    </t>
+
+
+
+                                    <t t-if="not record.main_info_ids">
+                                        <td><p> </p></td>
+                                    </t>
+                                    <t t-if="record.main_info_ids">
+                                        <t t-foreach="record.display_time()" t-as="maintain_id">
+                                            <td><p><span t-esc="maintain_id.implement_date"/></p></td>
+                                        </t>
+                                    </t>
+
+
+                                    <td>
+                                        <p><span t-esc="record.dmg_time"/></p>
+                                    </td>
+
+                                    <td>
+                                        <p><span t-esc="record.dmg_reason"/></p>
+                                    </td>
+
+                                    <td>
+        <!--                                   Ghi chú-->
+                                        <p><span t-esc="record.des"/></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <t t-set="i" t-value="i+1"/>
+                        </t>
+                    </div>
+               </table>
+           </t>
+       </template>
+
+        <template id="BaoCaoTongHopPTD">
+            <t t-call="web.basic_layout">
+
+                <h1>Sổ quản lí thiết bị đo lường</h1>
+                <br/>
+                <table class="vss_table">
+                    <thead>
+                        <tr>
+                            <th>TT</th>
+                            <th>Tên trang bị đồng bộ phụ tùng</th>
+                            <th>Ký hiệu</th>
+                            <th>Số hiệu</th>
+                            <th>Nhóm PTĐ</th>
+                            <th>Chủng loại PTĐ</th>
+                            <th>Đơn vị tính</th>
+                            <th>Số lượng</th>
+                            <th>Nơi (hãng) SX</th>
+                            <th>Năm SX</th>
+                            <th>Năm SD</th>
+                            <th>Đặc tính kĩ thuật/đo lường</th>
+                            <th>Cấp CL</th>
+                            <th>Chu kì KĐHC</th>
+                            <th>Hiệu lực KĐHC</th>
+                            <th>Số GCN KĐHC</th>
+                            <th>Đơn vị KĐHC</th>
+                            <th>Cấp quản lí (TĐ hay BQP)</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+
+                    <t t-set="i" t-value="1"/>
+                    <div t-foreach="docs" t-as="o">
+                        <t t-foreach="o" t-as="record">
+                            <tbody class="container">
+                                <t t-if="record.defence_ministry">
+                                    <tr>
+                                        <!--                                 STT-->
+                                        <td>
+                                            <span t-esc="i"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Số quản lý // Mã QLTS-->
+                                            <span t-esc="record.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Tên trạng bị ĐLTN-->
+                                            <span t-esc="record.model"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Tên trạng bị ĐLTN-->
+                                            <span t-esc="record.serial_number"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Ký hiệu-->
+                                            <span t-esc="record.device_group_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Số hiệu-->
+                                            <span t-esc="record.type_equip_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Nước (hãng) sản xuất-->
+                                           <span t-esc="record.unit_measure_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!-- Số lượng-->
+                                            <p>1</p>
+                                        </td>
+                                        <td>
+                                            <!--                                    Nước sản xuất-->
+                                            <span t-esc="record.country_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Năm sản xuất-->
+                                            <span t-esc="record.year_manufacture"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Năm sản xuất-->
+                                            <span t-esc="record.year_use"/>
+                                        </td>
+
+                                        <!--                                    Đặc tính đo lường kĩ thuật-->
+                                        <t t-if="record.spe_info_ids">
+                                            <t t-foreach="record.display_thongtin()" t-as="thongtin">
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="thongtin.para"/>
+                                                        -
+                                                        <span t-esc="thongtin.value"/>
+                                                        -
+                                                        <span t-esc="thongtin.unit_id"/>
+                                                    </p>
+                                                </td>
+                                            </t>
+                                        </t>
+                                        <t t-else="not record.spe_info_ids">
+                                              <td><p> </p></td>
+                                          </t>
+
+                                          <td>
+        <!--                                    Cấp CL / Cấp chất lượng / Phân cấp chất lượng-->
+                                              <span t-esc="record.quality_level"/>
+                                          </td>
+<!--                                          <td>-->
+<!--        &lt;!&ndash;                                    Đơn vị quản lý &ndash;&gt;-->
+<!--                                              <span t-esc="record.direct_unit_manager_id.name"/>-->
+<!--                                          </td>-->
+                                          <td>
+        <!--                                    Chu kỳ KĐ/HC - Chu kì bảo dưỡng-->
+                                              <span t-esc="record.maintain_cycle"/>
+                                          </td>
+
+<!--                                          đơn vị KĐ/HC-->
+                                        <t t-if="not record.can_link_info_ids">
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                        </t>
+                                        <t t-else="record.can_link_info_ids">
+
+                                            <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="check_or_correct_id.val_date"/>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="check_or_correct_id.number"/>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="check_or_correct_id.organization"/>
+                                                    </p>
+                                                </td>
+                                            </t>
+                                        </t>
+                                        <t t-if="record.defence_ministry">
+                                            <td>
+                                                <p>BQP</p>
+                                            </td>
+                                        </t>
+                                        <t t-if=" not record.defence_ministry">
+                                            <td>
+                                                <p>TĐ</p>
+                                            </td>
+                                        </t>
+
+                                        <!--đơn vị KĐ/HC-->
+                                        <td>
+                                            <!--                                    Ghi chú-->
+                                            <span t-esc="record.des"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                </t>
+                            </tbody>
+                        </t>
+                    </div>
+                </table>
+            </t>
+        </template>
+
+        <template id="BaoCaoTongHopPTDCapBQP">
+            <t t-call="web.basic_layout">
+
+                <h1>Báo cáo tổng hợp PTĐ cấp BQP</h1>
+                <br/>
+                <table class="vss_table">
+                    <tr>
+                        <th>STT</th>
+                        <th>Số quản lý</th>
+                        <th>Tên trang bị ĐL-TN</th>
+                        <th>Ký hiệu</th>
+                        <th>số hiệu</th>
+                        <th>Nước(hãng) SX</th>
+                        <th>Năm SX</th>
+                        <th>Đặc tính đo lường chủ yếu</th>
+                        <th>Cấp CL</th>
+                        <th>Đơn vị quản lý</th>
+                        <th>Chu kỳ KĐ/HC</th>
+                        <th>Nơi KĐ/HC</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                    <t t-set="i" t-value="1"/>
+                    <div t-foreach="docs" t-as="o">
+                        <t t-foreach="o" t-as="record">
+                            <tbody class="container">
+                                <t t-if="record.defence_ministry">
+                                    <tr>
+                                        <!--                                 STT-->
+                                        <td>
+                                            <span t-esc="i"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Số quản lý // Mã QLTS-->
+                                            <span t-esc="record.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Tên trạng bị ĐLTN-->
+                                            <span t-esc="record.asset_code"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Ký hiệu-->
+                                            <span t-esc="record.model"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Số hiệu-->
+                                            <span t-esc="record.serial_number"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Nước (hãng) sản xuất-->
+                                           <span t-esc="record.country_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Năm sản xuất-->
+                                            <span t-esc="record.year_use"/>
+                                        </td>
+
+                                        <!--                                    Đặc tính đo lường kĩ thuật-->
+                                        <t t-if="record.spe_info_ids">
+                                            <t t-foreach="record.display_thongtin()" t-as="thongtin">
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="thongtin.para"/>
+                                                        -
+                                                        <span t-esc="thongtin.value"/>
+                                                        -
+                                                        <span t-esc="thongtin.unit_id"/>
+                                                    </p>
+                                                </td>
+                                            </t>
+                                        </t>
+                                        <t t-else="not record.spe_info_ids">
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                        </t>
+
+                                        <td>
+                                            <!--                                    Cấp CL / Cấp chất lượng / Phân cấp chất lượng-->
+                                            <span t-esc="record.quality_level"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Đơn vị quản lý -->
+                                            <span t-esc="record.direct_unit_manager_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--                                    Chu kỳ KĐ/HC - Chu kì bảo dưỡng-->
+                                            <span t-esc="record.maintain_cycle"/>
+                                        </td>
+
+                                        <!--                                          đơn vị KĐ/HC-->
+                                        <t t-if="record.can_link_info_ids">
+                                            <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                                <td>
+                                                    <p>
+                                                        <span t-esc="check_or_correct_id.organization"/>
+                                                    </p>
+                                                </td>
+                                            </t>
+                                        </t>
+                                        <t t-else="not record.can_link_info_ids">
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <!--                                    Ghi chú-->
+                                            <span t-esc="record.des"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="i" t-value="i+1"/>
+                                </t>
+                            </tbody>
+                        </t>
+                    </div>
+                </table>
+            </t>
+        </template>
+
+        <template id="BaoCaoThongTinSaiLech">
+            <t t-call="web.basic_layout">
+
+                <h1>Báo cáo PTĐ có thông tin sai lệch</h1>
+                <br/>
+                <table class="vss_table">
+                    <thead>
+                    <tr>
+                        <th colspan="8" style="height:50px">Báo cáo thông tin sai lệch</th>
+                    </tr>
+                    <tr style="height:50px">
+                        <th rowspan="2" style="width:4%">STT</th>
+                        <th rowspan="2" style="width:16%">Tên thiết bị</th>
+                        <th rowspan="2" style="width:16%">Mã thiết bị</th>
+                        <th colspan="3" style="width:48%; height:50px">Thông tin sai lệch</th>
+                        <th rowspan="2" style="width:16%">Ghi chú</th>
+                    </tr>
+                    <tr style="height:50px">
+                        <th style="width:16%">Trường dữ liệu</th>
+                        <th style="width:16%">Thông tin cũ</th>
+                        <th style="width:16%">Thông tin mới</th>
+                    </tr>
+                    </thead>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="docs" t-as="o">
+                        <tr>
+                            <td style="width:4%">
+                                <!--STT-->
+                                <span t-esc="i"/>
+                            </td>
+                            <td style="width:16%">
+                                <!--Tên thiết bị-->
+                                <span t-esc="o.asset_code"/>
+                            </td>
+                            <td style="width:16%">
+                                <!--Mã thiết bị-->
+                                <span t-esc="o.name"/>
+                            </td>
+                            <!--Thông tin sai lệch-->
+                            <td style="width:16%">
+                                <!--Trường dữ liệu-->
+<!--                                <span t-esc="o."/>-->
+                            </td>
+                            <td style="width:16%">
+                                <!--Thông tin cũ-->
+                                <!--<span t-esc="o."/>-->
+                            </td>
+                            <td style="width:16%">
+                                <!--Thông tin mới-->
+                                <!-- <span t-esc="o."/>-->
+                            </td>
+                            <td style="width:16%">
+                                <!--Ghi chú-->
+                                <span t-esc="o.des"/>
+                            </td>
+                        </tr>
+                        <t t-set="i" t-value="i+1"/>
+                    </t>
+                </table>
+            </t>
+        </template>
+
+
+        <!--        Tạo menu in ấn-->
+        <report id="print_report1"
+                model="ptd.measuring.device"
+                string="In Báo cáo chi tiết phương tiện đo lường trong tập đoàn"
+                report_type="qweb-pdf"
+                name="mockproject.BaoCaoChiTiet"
+                file="In BC Ptd"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report2"
+                model="ptd.measuring.device"
+                string="Sổ quản lí thiết bị đo lường"
+                report_type="qweb-pdf"
+                name="mockproject.BaoCaoTongHopPTD"
+                file="In BC Sổ quản lý"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report3"
+                model="ptd.measuring.device"
+                string="Báo cáo tổng hợp PTĐ cấp BQP"
+                report_type="qweb-pdf"
+                name="mockproject.BaoCaoTongHopPTDCapBQP"
+                file="In BC Ptd BQP"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report4"
+                model="ptd.measuring.device"
+                string="Báo cáo PTĐ có thông tin sai lệch"
+                report_type="qweb-pdf"
+                name="mockproject.BaoCaoThongTinSaiLech"
+                file="In BC Sai lệch"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+
+
+<!--        xlsx-->
+                <report id="print_report_ptd_xls"
+                model="ptd.measuring.device"
+                string="Báo cáo chi tiết phương tiện đo lường trong tập đoàn Excel"
+                report_type="xlsx"
+                name="mockproject.baocaochitietexcel"
+                file="In Báo cáo chi tiết phương tiện đo lường trong tập đoàn Excel"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report_ptd_xls2"
+                model="ptd.measuring.device"
+                string="Báo cáo Sổ quản lí thiết bị đo lường Excel"
+                report_type="xlsx"
+                name="mockproject.baocaochitietexcel2"
+                file="In Báo cáo Sổ quản lí thiết bị đo lường Excel"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report_ptd_xls3"
+                model="ptd.measuring.device"
+                string="Báo cáo tổng hợp PTĐ cấp BQP Excel"
+                report_type="xlsx"
+                name="mockproject.baocaochitietexcel3"
+                file="In Báo cáo tổng hợp PTĐ cấp BQP Excel"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+
+        <report id="print_report_ptd_xls4"
+                model="ptd.measuring.device"
+                string="Báo cáo PTĐ có thông tin sai lệch Excel"
+                report_type="xlsx"
+                name="mockproject.baocaochitietexcel4"
+                file="In BC Sai lệch Excel"
+                attachment_use="True"
+                paperformat="bms_paperformat"/>
+    </data>
+</odoo>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_measuring_device_form" model="ir.ui.view">
+            <field name="model">ptd.measuring.device</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý thông tin thiết bị đo">
+
+                    <header>
+                        <button id="button_using_func" name="button_using_func" string="Đang sử dụng"
+                                type="object"
+                                class="oe_highlight"/>
+                        <button id="button_fixing_func" name="button_fixing_func" string="Đang sửa chữa"
+                                type="object"
+                                class="oe_highlight"/>
+                         <button id="button_buying_func" name="button_buying_func" string="Đã thanh lý"
+                                type="object"
+                                class="oe_highlight"/>
+                        <button id="button_create_appointment" name="%(mockproject.action_create_appointment)d" string="Hư hòng"
+                                type="action"
+                                class="oe_highlight"
+                                />
+
+                        <field name="status" widget="statusbar" />
+                    </header>
+                    <sheet>
+
+                        <div class="alert alert-warning text-center o_form_header" role="alert"
+                            attrs="{'invisible':[('is_birthday','=',False)]}"
+                        >
+                            <a class="close" data-dismiss="alert" herf="#">x</a>
+                            <div>
+                                <field name="name" required="0" readonly="1"/>
+                            </div>
+                            <div>
+                                <strong>Gần hết hạn bảo dưỡng</strong>
+                            </div>
+
+                        </div>
+                        <div class="alert alert-danger text-center o_form_header" role="alert"
+                            attrs="{'invisible':[('is_birthday01','=',False)]}"
+                        >
+                            <a class="close" data-dismiss="alert" herf="#">x</a>
+                            <div>
+                                <field name="name" required="0" readonly="1"/>
+                            </div>
+                            <div>
+                                <strong>
+                                    Đã quá hạn bảo dưỡng
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                       <div class="oe_title">
+                             <field name="image_id" widget="image" class="oe_avatar"/>
+                            <h1>Thông tin thiết bị </h1>
+                        </div>
+
+<!--                        </div>-->
+                        <notebook colspan="4">
+                            <page string="Thông tin chung">
+                                <group>
+                                    <group>
+                                        <field name="name" widget="red_widget"/>
+                                        <field name="mer_id"/>
+                                        <field name="asset_code"/>
+                                        <field name="is_serial" widget="radio" options="{'horizontal': true}"/>
+                                        <field name="classify"/>
+                                        <field name="device_group_id"/>
+                                        <field name="type_equip_id" widget="selection"/>
+                                        <field name="system_id"/>
+                                        <field name="producer_id"/>
+                                        <field name="model"/>
+                                        <field name="serial_number"
+                                               attrs="{'invisible':[('is_serial','==', 'noserial')]}"/>
+
+
+
+                                    </group>
+
+                                    <group>
+                                           <field name="country_id" widget="color_widget"/>
+                                           <field name="year_manufacture" widget="color_widget"/>
+                                           <field name="year_use" widget="color_widget"/>
+                                           <field name="des" widget="color_widget"/>
+                                           <field name="attach" widget="color_widget"/>
+                                           <field name="count" />
+                                        <field name="unit_measure_id"/>
+                                        <field name="is_standard_equipment"/>
+                                        <field name="is_birthday"/>
+                                        <field name="is_birthday01"/>
+                                        <field name="check"
+                                               attrs="{'invisible':1}"/>
+                                        <field name="maintain_info"
+                                               attrs="{'invisible':1}"/>
+                                        <field name="type_of"
+                                               attrs="{'invisible':1}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Thông tin quản lý">
+                                <group>
+                                    <group>
+                                        <field name="direct_unit_manager_id" />
+                                        <field name="direct_manager_id" />
+                                        <field name="user" />
+                                        <field name="level_one_manager" />
+                                        <field name="install_location" />
+                                        <field name="defence_ministry" />
+                                    </group>
+                                    <group>
+                                        <field name="reports" />
+                                        <field name="inves_project" />
+                                        <field name="inves_value" />
+                                        <field name="handover_file" />
+                                        <field name="lic_users" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Quản lý chất lượng">
+                                <group>
+                                    <group>
+                                        <field name="quality_status" readonly="1"/>
+                                        <field name="quality_level"/>
+                                        <field name="dmg_time" attrs="{'invisible':[('dmg_reason','==','')]}" />
+                                        <field name="dmg_reason" attrs="{'invisible':[('dmg_reason','==','')]}"/>
+                                        <field name="transfer_day"/>
+                                        <field name="transfer_reason"/>
+                                    </group>
+                                    <group>
+                                        <field name="maintain_cycle"/>
+                                        <field name="standard_link_cycle"/>
+                                        <field name="cer_active"/>
+                                        <field name="expiry_date"
+                                               attrs="{'invisible':[('expiry_date','==','')]}"
+                                        />
+<!--                                        <field name="standard_link_id" widget='selection' />-->
+                                    </group>
+                                </group>
+                            </page>
+
+
+                            <page string="Thông số kĩ thuật">
+
+                                <field name="spe_info_ids" >
+                                    <tree editable="bottom">
+                                        <field name="para" />
+                                        <field name="value" />
+                                        <field name="unit_id" />
+                                        <field name="dis_resolution" />
+                                        <field name="error" />
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Thông tin bảo dưỡng">
+
+                                <field name="main_info_ids" >
+                                    <tree editable="bottom">
+                                        <field name="implement_date" />
+                                        <field name="attachment" />
+                                        <field name="note"/>
+                                        <field name="create_date" string="Ngày tạo" />
+                                        <field name="create_uid" string="Người tạo"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                             <page string="Thông tin liên kết chuẩn">
+
+                                <field name="can_link_info_ids" >
+                                    <tree >
+                                        <field name="implement" />
+                                        <field name="val_date" />
+                                        <field name="expiration_date" />
+                                        <field name="result" />
+                                        <field name="name" />
+                                        <field name="organization" />
+                                        <field name="reason_fail" />
+                                        <field name="certifi" />
+                                        <field name="number" />
+                                        <field name="active1" />
+                                    </tree>
+                                </field>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_measuring_device_tree" model="ir.ui.view">
+            <field name="name">Quản lý thiết bị đo</field>
+            <field name="model">ptd.measuring.device</field>
+            <field name="arch" type="xml">
+                <tree string="Quản lý phương tiện đo" default_order="id desc"
+
+                >
+                    <field name="name"
+                           decoration-warning="quality_status=='occupied'"
+                           decoration-danger="quality_status=='expiry_near'"
+                    />
+                    <field name="asset_code"/>
+                    <field name="expiry_date"
+                    readonly="1"    />
+
+                    <field name="status"/>
+                    <field name="maintain_cycle"/>
+                    <field name="standard_link_cycle"/>
+                    <field name="quality_status"
+                           decoration-warning="quality_status=='occupied'"
+                           decoration-danger="quality_status=='expiry_near'"
+
+                    force_save = "1"/>
+                    <field name="cer_active"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ptd_measuring_device_search" model="ir.ui.view">
+            <field name="name">Tìm kiếm quản lý thiết bị đo</field>
+            <field name="model">ptd.measuring.device</field>
+            <field name="arch" type="xml">
+
+                <search string="Tìm kiếm thiết bị đo"
+                >
+                    <field name="name"/>
+                    <field name="asset_code" filter_domain="[('asset_code','ilike','self')]" />
+                    <field name="serial_number"/>
+                    <field name="standard_link_cycle"/>
+<!--                    <field name="can_link_info_ids" required="1" widget="many2many_tags" options="{'color': 'red'}"/>-->
+                    <field name="maintain_cycle"/>
+                    <field name="standard_link_cycle"/>
+                    <field name="cer_active"/>
+                    <field name="quality_status"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="ptd_measuring_device_act" model="ir.actions.act_window">
+            <field name="name">Quản lý thiết bị đo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.measuring.device</field>
+            <field name="view_id" eval="False" />
+        </record>
+    </data>
+</odoo>

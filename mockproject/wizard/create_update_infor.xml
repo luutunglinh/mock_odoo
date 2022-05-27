@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_create_update_infor_form" model="ir.ui.view">
+        <field name="name">Search</field>
+        <field name="model">create.update.infor.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Tìm kiếm">
+                <group>
+                    <group>
+                    <field name="code_device" />
+                    <field name="name_device"/>
+                    <field name="unit_using"/>
+
+                </group>
+                <group>
+                    <field name="status"/>
+                    <field name="maintain"/>
+                    <field name="type_of"/>
+                </group>
+                </group>
+
+                <footer>
+                    <button string="Search" name="mutil_update" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_create_update_infor" model="ir.actions.act_window">
+        <field name="name">Tìm kiếm thiết bị</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.update.infor.wizard</field>
+        <field name="binding_model_id" ref="model_ptd_measuring_device"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_create_update_infor_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

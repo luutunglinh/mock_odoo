@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_canonical_link_info_form" model="ir.ui.view">
+            <field name="model">ptd.canonical.link.info</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý thông tin liết chuẩn">
+                    <sheet>
+                        <group>
+                                <group>
+                                    <field name="implement"/>
+                                    <field name="val_date"/>
+                                    <field name="expiration_date"/>
+                                    <field name="result"/>
+                                    <field name="name"/>
+                                </group>
+                                <group>
+                                    <field name="organization"/>
+                                    <field name="reason_fail"/>
+                                    <field name="number"/>
+                                    <field name="certifi"/>
+                                    <field name="active1"/>
+                                </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_canonical_link_info_tree" model="ir.ui.view">
+            <field name="name">Thông tin liên kết chuẩn </field>
+            <field name="model">ptd.canonical.link.info</field>
+            <field name="arch" type="xml">
+                <tree string="Quản lý thông tin liên kết chuẩn"  default_order="id desc" >
+<!--                    # định nghĩa màn hình tree view-->
+                    <field name="implement"/>
+                    <field name="val_date"/>
+                    <field name="expiration_date"/>
+                    <field name="result"/>
+                    <field name="name"/>
+                    <field name="organization"/>
+                    <field name="reason_fail"/>
+                    <field name="number"/>
+                    <field name="certifi"/>
+                    <field name="active1"/>
+                </tree>
+            </field>
+<!--            # ddinghj nghĩa màn hình from view-->
+        </record>
+
+        <record id="ptd_canonical_link_info_act" model="ir.actions.act_window">
+<!--            # định nghĩa màn hình-->
+            <field name="name">Quản lý thông tin liên kết chuẩn</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.canonical.link.info</field>
+            <field name="view_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

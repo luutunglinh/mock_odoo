@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_maintenance_info_form" model="ir.ui.view">
+            <field name="model">ptd.maintenance.info</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý thông tin bảo dưỡng">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="test"/>
+                                <field name="implement_date"/>
+                                <field name="attachment"/>
+                                <field name="note"/>
+                                <field name="create_date" string="Ngày tạo"/>
+                                <field name="create_uid" string="Người tạo"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_maintenance_info_tree" model="ir.ui.view">
+            <field name="name">Quản lý thông tin bảo dưỡng</field>
+            <field name="model">ptd.maintenance.info</field>
+            <field name="arch" type="xml">
+                <tree string="Quản lý thông tin bảo dưỡng"  default_order="id desc" >
+<!--                    # định nghĩa màn hình tree view-->
+                    <field name="test"/>
+                    <field name="implement_date"/>
+                    <field name="attachment"/>
+                    <field name="note"/>
+                    <field name="create_date" string="Ngày tạo"/>
+                    <field name="create_uid" string="Người tạo"/>
+                </tree>
+            </field>
+<!--            # ddinghj nghĩa màn hình from view-->
+        </record>
+
+        <record id="ptd_maintenance_info_act" model="ir.actions.act_window">
+<!--            # định nghĩa màn hình-->
+            <field name="name">Quản lý thông tin bảo dưỡng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.maintenance.info</field>
+            <field name="view_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

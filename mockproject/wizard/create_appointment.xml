@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_create_appointment_form" model="ir.ui.view">
+        <field name="name">Hư hòng</field>
+        <field name="model">create.appointment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Hư hỏng">
+                <group>
+                    <field name="name_device" readonly="1"/>
+                    <field name="dmg_time"/>
+                    <field name="dmg_reason"/>
+                </group>
+                <footer>
+                    <button string="Save" name="mutil_appointment" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_create_appointment" model="ir.actions.act_window">
+        <field name="name">Hư hỏng</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.appointment.wizard</field>
+         <field name="binding_model_id" ref="model_ptd_measuring_device"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_create_appointment_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

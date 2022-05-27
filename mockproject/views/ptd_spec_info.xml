@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_spec_info_form" model="ir.ui.view">
+            <field name="model">ptd.spec.info</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý thông số kỹ thuật">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="para"/>
+                                <field name="value"/>
+                                <field name="unit_id"/>
+                                <field name="dis_resolution"/>
+                                <field name="error"/>
+                                <field name="measuring_device_id"/>
+                                <field name="note"/>
+                                <field name="create_date"/>
+                                <field name="create_uid"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_spec_info_tree" model="ir.ui.view">
+            <field name="name">Quản lý thông số kỹ thuật</field>
+            <field name="model">ptd.spec.info</field>
+            <field name="arch" type="xml">
+                <tree string="Quản lý thông số kỹ thuật"  default_order="id desc" >
+<!--                    # định nghĩa màn hình tree view-->
+                    <field name="para"/>
+                    <field name="value"/>
+                    <field name="unit_id"/>
+                    <field name="dis_resolution"/>
+                    <field name="error"/>
+                    <field name="measuring_device_id"/>
+                    <field name="note"/>
+                    <field name="create_date" string="Ngày tạo"/>
+                    <field name="create_uid" string= "Người tạo"/>
+                </tree>
+            </field>
+<!--            # ddinghj nghĩa màn hình from view-->
+        </record>
+
+        <record id="ptd_spec_info_act" model="ir.actions.act_window">
+<!--            # định nghĩa màn hình-->
+            <field name="name">Quản lý thông số kỹ thuật</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.spec.info</field>
+            <field name="view_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

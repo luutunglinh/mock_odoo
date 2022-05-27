@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ptd_direct_unit_manager_form" model="ir.ui.view">
+            <field name="model">ptd.direct.unit.manager</field>
+            <field name="arch" type="xml">
+                <form string="Quản lý chi nhánh đơn vị đo trực tiếp">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='group_id'/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="path"/>
+                                <field name="level"/>
+                                <field name="direct_manager_fullname"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ptd_direct_unit_manager_tree" model="ir.ui.view">
+            <field name="name"> Quản lý chi nhánh đơn vị đo trực tiếp</field>
+            <field name="model">ptd.direct.unit.manager</field>
+            <field name="arch" type="xml">
+                <tree string="Quản lý đơn vị đo trực tiếp"  default_order="id desc" >
+<!--                    # định nghĩa màn hình tree view-->
+                    <field name='group_id'/>
+                    <field name="name"/>
+                    <field name="path"/>
+                    <field name="direct_manager_fullname"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+<!--            # ddinghj nghĩa màn hình from view-->
+        </record>
+
+        <record id="ptd_direct_unit_manager_act" model="ir.actions.act_window">
+<!--            # định nghĩa màn hình-->
+            <field name="name">Quản lý chi nhánh đơn vị đo trực tiếp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ptd.direct.unit.manager</field>
+            <field name="view_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

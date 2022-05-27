@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="ptd_management_menuroot" name="Quản lý thiết bị đo" sequence="5"
+                  web_icon="thuchanh,statics/description/icon.png"/>
+        <menuitem id="ptd_device_menu" name="Quản lý thiết bị" parent="ptd_management_menuroot" sequence="25"/>
+        <menuitem id="ptd_configuration_menu" name="Quản lý cấu hình" parent="ptd_management_menuroot" sequence="50"/>
+        <!--thực hành thuộc adds, group_verifier là id trong account.xml-->
+        <menuitem id="ptd_measuring_device_menu" name=" Quản lý thiết bị đo"
+                  parent="ptd_device_menu" action="ptd_measuring_device_act" sequence="30"/>
+        <menuitem id="ptd_type_equip_menu" name=" Quản lý loại thiết bị"
+                  parent="ptd_device_menu" action="ptd_type_equip_act" sequence="35"/>
+        <menuitem id="ptd_device_group_menu" name=" Quản lý nhóm thiết bị"
+                  parent="ptd_device_menu" action="ptd_device_group_act" sequence="35"/>
+        <menuitem id="ptd_device_category_manager_menu" name=" Quản lý danh mục thiết bị"
+                  parent="ptd_device_menu" action="ptd_device_category_manager_act" sequence="35"/>
+        <menuitem id="ptd_manufactures_menu" name=" Quản lý nhà sản xuất"
+                  parent="ptd_device_menu" action="ptd_manufactures_act" sequence="35"/>
+        <menuitem id="ptd_lab_menu" name="Quản lý vị trí lắp đặt"
+                  parent="ptd_device_menu" action="ptd_lab_act" sequence="35"/>
+        <menuitem id="ptd_canonical_link_info_menu" name="Quản lý liên kết chuẩn "
+                  parent="ptd_device_menu" action="ptd_canonical_link_info_act" sequence="35"/>
+        <menuitem id="ptd_maintenance_info_menu" name="Quản lý thông tin bảo dưỡng "
+                  parent="ptd_device_menu" action="ptd_maintenance_info_act" sequence="35"/>
+        <menuitem id="ptd_position_manager_menu" name="Quản lý chức vụ "
+                  parent="ptd_device_menu" action="ptd_position_manager_act" sequence="35"/>
+
+        <menuitem id="ptd_unit_measure_manager_menu" name=" Quản lý đơn vị đo"
+                  parent="ptd_configuration_menu" action="ptd_unit_measure_manager_act" sequence="35"/>
+        <menuitem id="ptd_direct_unit_manager_menu" name=" Quản lý chi nhánh đơn vị đo"
+                  parent="ptd_configuration_menu" action="ptd_direct_unit_manager_act" sequence="35"/>
+        <menuitem id="ptd_system_menu" name=" Quản lý thông tin hệ thống"
+                  parent="ptd_configuration_menu" action="ptd_system_act" sequence="35"/>
+        <menuitem id="ptd_spec_info_menu" name="Quản lý thông số kỹ thuật "
+                  parent="ptd_configuration_menu" action="ptd_spec_info_act" sequence="35"/>
+
+        <menuitem id="menu_create_update_infor" name="Tìm kiếm"
+                  parent="ptd_management_menuroot" action="action_create_update_infor" sequence="35"/>
+
+
+
+
+
+
+
+<!--        <menuitem id="open_academy_reporting_sub"-->
+<!--              name="PDF Report"-->
+<!--              sequence="3"-->
+<!--              action="create_pdf_report"-->
+<!--              parent="mockproject.open_create_reporting"/>-->
+
+<!--        <menuitem id="ptd_position_manager_menu" name=" Position manager"-->
+<!--                  parent="ptd_config_menu" action="ptd_position_manager_act" sequence="35"/>-->
+
+           <!--        <menuitem id="ptd_broken_equip_menu" name=" Broken equipment management"-->
+        <!--                  parent="ptd_config_menu" action="ptd_broken_equip_act" sequence="35"/>-->
+    </data>
+</odoo>
