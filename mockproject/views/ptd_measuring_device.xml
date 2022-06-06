@@ -174,11 +174,12 @@
                                     <tree >
                                         <field name="implement" />
                                         <field name="val_date" />
-                                        <field name="expiration_date" />
+                                        <field name="expiration_date"/>
                                         <field name="result" />
                                         <field name="name" />
                                         <field name="organization" />
-                                        <field name="reason_fail" />
+                                        <field name="reason_fail"
+                                            attrs="{'invisible':[('result','==', 'pass')]}"/>
                                         <field name="certifi" />
                                         <field name="number" />
                                         <field name="active1" />
@@ -207,7 +208,7 @@
                     />
                     <field name="asset_code"/>
                     <field name="expiry_date"
-                    readonly="1"    />
+                    />
 
                     <field name="status"/>
                     <field name="maintain_cycle"/>
@@ -215,7 +216,7 @@
                     <field name="quality_status"
                            decoration-warning="quality_status=='occupied'"
                            decoration-danger="quality_status=='expiry_near'"
-
+                           widget="badge"
                     force_save = "1"/>
                     <field name="cer_active"/>
 

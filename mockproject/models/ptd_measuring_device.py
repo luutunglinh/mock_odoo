@@ -182,7 +182,7 @@ class Ptdmeasuringdevice(models.Model):
     )
     maintain_cycle = fields.Integer(string=" Chu kì bảo dưỡng (tháng)")
     standard_link_cycle = fields.Integer(string="Chu kì liên kết chuẩn (tháng)")
-    expiry_date = fields.Date(string="Ngày hết hạn")
+    expiry_date = fields.Date(string="Ngày hết hạn" ,readonly=True)
 
 
 

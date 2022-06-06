@@ -193,17 +193,26 @@
                                         </t>
 
                                         <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
-                                            <t t-if="check_or_correct_id.name =='Accreditation'">
+                                            <t t-if="check_or_correct_id.name =='kiemdinh'">
                                                 <td><p>Kiểm định</p></td>
                                             </t>
-                                            <t t-if="check_or_correct_id.name =='Calibration'">
+                                            <t t-if="check_or_correct_id.name =='hieuchinh'">
                                                 <td><p>Hiệu chỉnh</p></td>
                                             </t>
                                         </t>
 
-                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                       <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
         <!--                                             Kết quả KĐ/HC : Đạt-->
                                             <t t-if="check_or_correct_id.result == 'pass'">
+                                                <td><p>x</p></td>
+                                            </t>
+                                            <t t-else="check_or_correct_id.result != 'pass'">
+                                                <td><p></p></td>
+                                            </t>
+                                        </t>
+
+                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
+                                            <t t-if="check_or_correct_id.result == 'nopass'">
                                                 <td><p>x</p></td>
                                             </t>
                                             <t t-else="check_or_correct_id.result != 'nopass'">
@@ -211,23 +220,26 @@
                                             </t>
                                         </t>
 
-                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
-                                            <t t-if="check_or_correct_id.name != '2'">
-                                                <td><p></p></td>
-                                            </t>
-                                            <t t-else="check_or_correct_id.name == '2'">
-                                                <td><p>x</p></td>
-                                            </t>
-                                        </t>
+<!--                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">-->
+<!--                                            <t t-if="check_or_correct_id.name != '2'">-->
+<!--                                                <td><p></p></td>-->
+<!--                                            </t>-->
+<!--                                            <t t-else="check_or_correct_id.name == '2'">-->
+<!--                                                <td><p>x</p></td>-->
+<!--                                            </t>-->
+<!--                                        </t>-->
 
                                         <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">
-                                            <t t-if="check_or_correct_id.name != '2'">
+                                            <t t-if="check_or_correct_id.result == 'nopass'">
+                                                <td><p><span t-esc="check_or_correct_id.reason_fail"/></p></td>
+                                            </t>
+                                            <t t-else="check_or_correct_id.result != 'nopass'">
                                                 <td><p></p></td>
                                             </t>
-                                            <t t-else="check_or_correct_id.name == '2'">
-                                                <td><p><span t-esc="check_or_correct_id.reason_not_pass"/></p></td>
-                                            </t>
                                         </t>
+<!--                                        <t t-foreach="record.display_kd_hc()" t-as="check_or_correct_id">-->
+<!--                                            <td><p><span t-esc="check_or_correct_id.reason_fail"/></p></td>-->
+<!--                                        </t>-->
 
                                     </t>
 
@@ -354,7 +366,7 @@
                                                         -
                                                         <span t-esc="thongtin.value"/>
                                                         -
-                                                        <span t-esc="thongtin.unit_id"/>
+                                                        <span t-esc="thongtin.unit_id.name"/>
                                                     </p>
                                                 </td>
                                             </t>
@@ -499,7 +511,7 @@
                                                         -
                                                         <span t-esc="thongtin.value"/>
                                                         -
-                                                        <span t-esc="thongtin.unit_id"/>
+                                                        <span t-esc="thongtin.unit_id.name"/>
                                                     </p>
                                                 </td>
                                             </t>
